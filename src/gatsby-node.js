@@ -78,34 +78,31 @@ async function generateFeed({ graphql }, feedOptions) {
   const options = { ...defaultOptions, ...feedOptions };
 
   const result = await graphql(`
-    {
-      site {
-        siteMetadata {
-          title
-          description
-          author { name }
-          siteUrl
-        }
+{
+  site {
+    siteMetadata {
+      title
+      description
+      author {
+        name
       }
-      allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "${options.match}" } }
-        sort: { fields: [frontmatter___date], order: DESC }
-        limit: ${options.limit}
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              date
-            }
-            html
-          }
+      siteUrl
+    }
+  }
+  allMarkdownRemark(filter: {fileAbsolutePath: {regex: "${options.match}" }}, sort: {fields: [frontmatter___date], order: DESC}, limit: ${options.limit}) {
+    edges {
+      node {
+        id
+        excerpt(pruneLength: 280)
+        frontmatter {
+          date(formatString: "DD MMMM YYYY")
+          url
+          title
         }
       }
     }
+  }
+}
   `);
 
   if (result.errors) {
