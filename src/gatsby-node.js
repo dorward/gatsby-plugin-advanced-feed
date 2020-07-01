@@ -10,9 +10,9 @@ function addItemToFeed(feed, siteMetadata, options) {
 	return function (page) {
 		const item = {
 			title: page.frontmatter.title,
-			id: "" + siteMetadata.siteUrl + page.frontmatter.url,
-			link: "" + siteMetadata.siteUrl + page.frontmatter.url,
-			date: (0, _dayjs["default"])(page.frontmatter.date).toDate(),
+			id: `${siteMetadata.siteUrl}${page.frontmatter.url}`,
+			link: `${siteMetadata.siteUrl}${page.frontmatter.url}`,
+			date: dayjs(page.frontmatter.date).toDate(),
 			content: page.excerpt,
 			author: [{
 				name: options.author || siteMetadata.author.name,
