@@ -10,8 +10,8 @@ function addItemToFeed(feed, siteMetadata, options) {
   return page => {
     feed.addItem({
       title: page.frontmatter.title,
-      id: `${siteMetadata.siteUrl}${page.fields.slug}`,
-      link: `${siteMetadata.siteUrl}${page.fields.slug}`,
+      id: `${siteMetadata.siteUrl}${page.frontmatter.url}`,
+      link: `${siteMetadata.siteUrl}${page.frontmatter.url}`,
       date: dayjs(page.frontmatter.date).toDate(),
       content: page.html,
       author: [
